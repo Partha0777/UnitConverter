@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.materialIcon
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -25,6 +28,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,6 +59,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UnitConverterUi() {
+
+    var inputExpand by remember { mutableStateOf(false) }
+    var inputValue by remember { mutableStateOf(String()) }
+    var selectedInputConverter by remember { mutableStateOf("Select") }
+
+    fun handleInputDropDownClick(value: String){
+       inputExpand = false
+        selectedInputConverter = value
+    }
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -59,27 +76,63 @@ fun UnitConverterUi() {
         Text(text = "Unit Converter", fontSize = 20.sp)
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
-            value = "Select", onValueChange = {}, modifier = Modifier
+            value = inputValue, onValueChange = {
+                inputValue = it
+            }, modifier = Modifier
                 .padding(12.dp)
         )
         Spacer(modifier = Modifier.height(20.dp))
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()) {
-            TextButton(onClick = { /*TODO*/ }, border = BorderStroke(width = 1.dp, color = Color.Gray)) {
-                Text(text = "Select")
-                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Box {
+                TextButton(onClick = {
+                    inputExpand = true
+                }, border = BorderStroke(width = 1.dp, color = Color.Gray)) {
+                    Text(text = selectedInputConverter)
+                    Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
+                }
+                DropdownMenu(expanded = inputExpand, onDismissRequest = {
+
+                }) {
+                    DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
+                        handleInputDropDownClick("Millimetre")
+                    })
+                    DropdownMenuItem(text = { Text(text = "Centimetre") }, onClick = {
+                        handleInputDropDownClick("Centimetre")
+                    })
+                    DropdownMenuItem(text = { Text(text ="Feet") }, onClick = {
+                        handleInputDropDownClick("Feet")
+
+                    })
+                    DropdownMenuItem(text = { Text(text = "Metre") }, onClick = {
+                        handleInputDropDownClick("Metre")
+                    })
+
+                }
             }
             Spacer(modifier = Modifier.width(100.dp))
-            TextButton(onClick = { /*TODO*/ }, border = BorderStroke(width =1.dp, color = Color.Gray)) {
+            TextButton(
+                onClick = { /*TODO*/ },
+                border = BorderStroke(width = 1.dp, color = Color.Gray)
+            ) {
                 Text(text = "Select")
                 Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
 
             }
         }
+
+
     }
 
+
 }
+
+fun handleInputDropDownClick(onExpandedStateChanged: (Boolean) -> Unit){
+    onExpandedStateChanged(false)
+}
+
 
 
 @Preview(showBackground = true)
