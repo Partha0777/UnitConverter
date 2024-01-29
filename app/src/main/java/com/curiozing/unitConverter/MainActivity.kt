@@ -64,12 +64,19 @@ class MainActivity : ComponentActivity() {
 fun UnitConverterUi() {
 
     var inputExpand by remember { mutableStateOf(false) }
+    var outputExpand by remember { mutableStateOf(false) }
     var inputValue by remember { mutableStateOf(String()) }
     var selectedInputConverter by remember { mutableStateOf("Select") }
+    var selectedOutputConverter by remember { mutableStateOf("Select") }
 
-    fun handleInputDropDownClick(value: String){
-       inputExpand = false
+    fun handleInputDropDownClick(value: String) {
+        inputExpand = false
         selectedInputConverter = value
+    }
+
+    fun handleOutputDropDownClick(value: String) {
+        outputExpand = false
+        selectedOutputConverter = value
     }
 
     Column(
@@ -90,9 +97,15 @@ fun UnitConverterUi() {
             modifier = Modifier.fillMaxWidth()
         ) {
             Box {
-                TextButton(onClick = {
-                    inputExpand = true
-                }, modifier = Modifier.border(BorderStroke(width = 1.dp, color = Color.Gray), shape = RoundedCornerShape(8.dp))) {
+                TextButton(
+                    onClick = {
+                        inputExpand = true
+                    },
+                    modifier = Modifier.border(
+                        BorderStroke(width = 1.dp, color = Color.Gray),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                ) {
                     Text(text = selectedInputConverter)
                     Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
                 }
@@ -105,7 +118,7 @@ fun UnitConverterUi() {
                     DropdownMenuItem(text = { Text(text = "Centimetre") }, onClick = {
                         handleInputDropDownClick("Centimetre")
                     })
-                    DropdownMenuItem(text = { Text(text ="Feet") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = "Feet") }, onClick = {
                         handleInputDropDownClick("Feet")
 
                     })
@@ -116,12 +129,39 @@ fun UnitConverterUi() {
                 }
             }
             Spacer(modifier = Modifier.width(100.dp))
-            TextButton(onClick = {
-                inputExpand = true
-            }, modifier = Modifier.border(BorderStroke(width = 1.dp, color = Color.Gray), shape = RoundedCornerShape(8.dp))) {
-                Text(text = selectedInputConverter)
-                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
-            }        }
+            Box {
+                TextButton(
+                    onClick = {
+                        outputExpand = true
+                    },
+                    modifier = Modifier.border(
+                        BorderStroke(width = 1.dp, color = Color.Gray),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                ) {
+                    Text(text = selectedOutputConverter)
+                    Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
+                }
+                DropdownMenu(expanded = outputExpand, onDismissRequest = {
+
+                }) {
+                    DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
+                        handleOutputDropDownClick("Millimetre")
+                    })
+                    DropdownMenuItem(text = { Text(text = "Centimetre") }, onClick = {
+                        handleOutputDropDownClick("Centimetre")
+                    })
+                    DropdownMenuItem(text = { Text(text = "Feet") }, onClick = {
+                        handleOutputDropDownClick("Feet")
+
+                    })
+                    DropdownMenuItem(text = { Text(text = "Metre") }, onClick = {
+                        handleOutputDropDownClick("Metre")
+                    })
+
+                }
+            }
+        }
 
 
     }
@@ -129,10 +169,9 @@ fun UnitConverterUi() {
 
 }
 
-fun handleInputDropDownClick(onExpandedStateChanged: (Boolean) -> Unit){
+fun handleInputDropDownClick(onExpandedStateChanged: (Boolean) -> Unit) {
     onExpandedStateChanged(false)
 }
-
 
 
 @Preview(showBackground = true)
