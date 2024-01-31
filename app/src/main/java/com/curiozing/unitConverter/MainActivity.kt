@@ -1,6 +1,7 @@
 package com.curiozing.unitConverter
 
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -97,19 +98,17 @@ fun UnitConverterUi() {
         ) {
             Box {
                 TextButton(
+                    border = BorderStroke(width = 1.dp, Color.Gray),
+                    shape = RoundedCornerShape(12.dp),
                     onClick = {
                         inputExpand = true
                     },
-                    modifier = Modifier.border(
-                        BorderStroke(width = 1.dp, color = Color.Gray),
-                        shape = RoundedCornerShape(8.dp)
-                    )
                 ) {
                     Text(text = selectedInputConverter)
                     Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
                 }
                 DropdownMenu(expanded = inputExpand, onDismissRequest = {
-
+                    inputExpand = false
                 }) {
                     DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
                         handleInputDropDownClick("Millimetre")
@@ -130,19 +129,17 @@ fun UnitConverterUi() {
             Spacer(modifier = Modifier.width(100.dp))
             Box {
                 TextButton(
+                    border = BorderStroke(width = 1.dp, Color.Gray),
+                    shape = RoundedCornerShape(12.dp),
                     onClick = {
                         outputExpand = true
                     },
-                    modifier = Modifier.border(
-                        BorderStroke(width = 1.dp, color = Color.Gray),
-                        shape = RoundedCornerShape(8.dp)
-                    )
                 ) {
                     Text(text = selectedOutputConverter)
                     Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
                 }
                 DropdownMenu(expanded = outputExpand, onDismissRequest = {
-
+                    outputExpand = false
                 }) {
                     DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
                         handleOutputDropDownClick("Millimetre")
