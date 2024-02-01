@@ -80,6 +80,10 @@ fun UnitConverterUi() {
         selectedOutputConverter = value
     }
 
+    fun converterCalculations(){
+
+    }
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
