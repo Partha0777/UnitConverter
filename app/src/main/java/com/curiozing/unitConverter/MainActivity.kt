@@ -103,7 +103,7 @@ fun UnitConverterUi() {
             Box {
                 TextButton(
                     border = BorderStroke(width = 1.dp, Color.Gray),
-                    shape = RoundedCornerShape(12.dp),
+                    shape = RoundedCornerShape(14.dp),
                     onClick = {
                         inputExpand = true
                     },
@@ -130,11 +130,11 @@ fun UnitConverterUi() {
 
                 }
             }
-            Spacer(modifier = Modifier.width(100.dp))
+            Spacer(modifier = Modifier.width(70.dp))
             Box {
                 TextButton(
                     border = BorderStroke(width = 1.dp, Color.Gray),
-                    shape = RoundedCornerShape(12.dp),
+                    shape = RoundedCornerShape(14.dp),
                     onClick = {
                         outputExpand = true
                     },
