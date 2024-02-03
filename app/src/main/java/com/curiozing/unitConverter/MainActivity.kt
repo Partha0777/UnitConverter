@@ -80,7 +80,7 @@ fun UnitConverterUi() {
         selectedOutputConverter = value
     }
 
-    fun converterCalculations(){
+    fun converterCalculations() {
 
     }
 
@@ -180,4 +180,39 @@ fun GreetingPreview() {
     MyApplicationTheme {
         UnitConverterUi()
     }
+}
+
+data class CustomClass( var id: Int, final var name: String){
+}
+
+var list = listOf(
+    CustomClass(1, "Partha"),
+    CustomClass(2, "Kan"),
+    CustomClass(3, "Sarathi")
+)
+lateinit var tempList: List<CustomClass>;
+
+
+fun main() {
+ //   var item = list[1]
+/*
+    list.find { it.id == 1 }.let {
+        it?.name = "Thalapathy"
+    }
+*/
+    println(list[1])
+
+   // tempList = list.map { it.copy() }
+    tempList = list
+
+    changeName(tempList[1])
+
+}
+
+fun changeName(item: CustomClass) {
+    item.let {
+        it.name = "It's Changed!"
+    }
+    println(list[1])
+
 }
