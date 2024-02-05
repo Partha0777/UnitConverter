@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -88,7 +89,7 @@ fun UnitConverterUi() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Unit Converter", fontSize = 20.sp)
+        Text(text = "Unit Converter", fontSize = 20.sp, fontWeight =  FontWeight(500))
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
             value = inputValue, onValueChange = {
@@ -103,7 +104,7 @@ fun UnitConverterUi() {
             Box {
                 TextButton(
                     border = BorderStroke(width = 1.dp, Color.Gray),
-                    shape = RoundedCornerShape(14.dp),
+                    shape = RoundedCornerShape(8.dp),
                     onClick = {
                         inputExpand = true
                     },
@@ -134,7 +135,7 @@ fun UnitConverterUi() {
             Box {
                 TextButton(
                     border = BorderStroke(width = 1.dp, Color.Gray),
-                    shape = RoundedCornerShape(14.dp),
+                    shape = RoundedCornerShape(8.dp),
                     onClick = {
                         outputExpand = true
                     },
@@ -182,7 +183,7 @@ fun GreetingPreview() {
     }
 }
 
-data class CustomClass( var id: Int, final var name: String){
+data class CustomClass(val id: Int, var name: String){
 }
 
 var list = listOf(
@@ -192,14 +193,21 @@ var list = listOf(
 )
 lateinit var tempList: List<CustomClass>;
 
+var hello = "434"
+
 
 fun main() {
  //   var item = list[1]
 /*
     list.find { it.id == 1 }.let {
-        it?.name = "Thalapathy"
+        it?.name = "Rock"
     }
 */
+    var data = hello
+    println(hello);
+    data = "djdj"
+    println(hello);
+
     println(list[1])
 
    // tempList = list.map { it.copy() }
@@ -210,6 +218,14 @@ fun main() {
 }
 
 fun changeName(item: CustomClass) {
+
+    var originalList = listOf("a", "b", "c")
+    println(originalList[0])
+    var copiedList = originalList.toMutableList()
+    copiedList[0] = "modified"
+    println(originalList[0])
+
+
     item.let {
         it.name = "It's Changed!"
     }
