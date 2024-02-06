@@ -89,9 +89,12 @@ fun UnitConverterUi() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Unit Converter", fontSize = 20.sp, fontWeight =  FontWeight(500))
+        Text(text = "Unit Converter", fontSize = 20.sp, fontWeight = FontWeight(500))
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
+            placeholder = {
+                Text(text = "Enter the value here...", color = Color.Gray)
+            },
             value = inputValue, onValueChange = {
                 inputValue = it
             }, modifier = Modifier
@@ -183,7 +186,7 @@ fun GreetingPreview() {
     }
 }
 
-data class CustomClass(val id: Int, var name: String){
+data class CustomClass(val id: Int, var name: String) {
 }
 
 var list = listOf(
@@ -197,12 +200,12 @@ var hello = "434"
 
 
 fun main() {
- //   var item = list[1]
-/*
-    list.find { it.id == 1 }.let {
-        it?.name = "Rock"
-    }
-*/
+    //   var item = list[1]
+    /*
+        list.find { it.id == 1 }.let {
+            it?.name = "Rock"
+        }
+    */
     var data = hello
     println(hello);
     data = "djdj"
@@ -210,7 +213,7 @@ fun main() {
 
     println(list[1])
 
-   // tempList = list.map { it.copy() }
+    // tempList = list.map { it.copy() }
     tempList = list
 
     changeName(tempList[1])
