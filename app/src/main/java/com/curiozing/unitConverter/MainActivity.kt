@@ -58,8 +58,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     UnitConverterUi()
                 }
@@ -77,6 +76,7 @@ fun UnitConverterUi() {
     var selectedInputConverter by remember { mutableStateOf("Select") }
     var selectedOutputConverter by remember { mutableStateOf("Select") }
     var resultText by remember { mutableStateOf("") }
+    var resultUnit by remember { mutableStateOf("") }
 
     fun roundToDecimalPlaces(value: Double, decimalPlaces: Int): Double {
         val factor = 10.0.pow(decimalPlaces.toDouble())
@@ -84,26 +84,17 @@ fun UnitConverterUi() {
     }
 
 
-
     fun converterCalculations() {
-        val value = inputValue.toDouble()
+        val value = if (inputValue.isEmpty()) 0.0 else inputValue.toDouble()
         print("Print --> $selectedInputConverter $selectedOutputConverter")
-        val result = when (selectedInputConverter to selectedOutputConverter){
-            "Centimetre" to "Metre" -> value / 100
-            "Centimetre" to "Feet" -> value / 30.48
-            "Centimetre" to "Millimetre" -> value * 10
-            "Metre" to "Centimetre" -> value * 100
-            "Metre" to "Feet" -> value * 3.281
-            "Metre" to "Millimetre" -> value * 1000
-            "Feet" to "Centimetre" -> value * 30.48
-            "Feet" to "Metre" -> value / 3.281
-            "Feet" to "Millimetre" -> value * 304.8
-            "Millimetre" to "Centimetre" -> value / 10
-            "Millimetre" to "Metre" -> value / 1000
-            "Millimetre" to "Feet" -> value / 304.8
-            else -> 0.0
-        }
-        resultText = "${roundToDecimalPlaces(result,2)}"
+        resultText = "${
+            roundToDecimalPlaces(
+                Utils.convertTheUnit(
+                    selectedInputConverter, selectedOutputConverter, value
+                ), 2
+            )
+        }"
+        resultUnit = selectedOutputConverter
     }
 
 
@@ -118,22 +109,22 @@ fun UnitConverterUi() {
     }
 
     Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Unit Converter", fontSize = 20.sp, fontWeight = FontWeight(500))
         Spacer(modifier = Modifier.height(20.dp))
-        Text(text = resultText, fontSize = 24.sp, fontWeight = FontWeight(700))
+        Text(text = resultText, fontSize = 28.sp, fontWeight = FontWeight(700))
+        Text(text = resultUnit, fontSize = 14.sp, fontWeight = FontWeight(700))
         Spacer(modifier = Modifier.height(20.dp))
-        OutlinedTextField(
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             placeholder = {
                 Text(text = "Enter the value here...", color = Color.Gray)
             },
-            value = inputValue, onValueChange = {
+            value = inputValue,
+            onValueChange = {
                 inputValue = it
-            }, modifier = Modifier
-                .padding(12.dp)
+            },
+            modifier = Modifier.padding(12.dp)
         )
         Spacer(modifier = Modifier.height(20.dp))
         Row(
@@ -227,13 +218,10 @@ fun GreetingPreview() {
     }
 }
 
-data class CustomClass(val id: Int, var name: String) {
-}
+data class CustomClass(val id: Int, var name: String) {}
 
 var list = listOf(
-    CustomClass(1, "Partha"),
-    CustomClass(2, "Kan"),
-    CustomClass(3, "Sarathi")
+    CustomClass(1, "Partha"), CustomClass(2, "Kan"), CustomClass(3, "Sarathi")
 )
 lateinit var tempList: List<CustomClass>;
 
