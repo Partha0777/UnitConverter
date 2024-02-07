@@ -18,10 +18,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.materialIcon
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -41,10 +44,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.curiozing.unitConverter.ui.theme.MyApplicationTheme
+import kotlin.math.pow
+import kotlin.math.round
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +76,36 @@ fun UnitConverterUi() {
     var inputValue by remember { mutableStateOf(String()) }
     var selectedInputConverter by remember { mutableStateOf("Select") }
     var selectedOutputConverter by remember { mutableStateOf("Select") }
+    var resultText by remember { mutableStateOf("") }
+
+    fun roundToDecimalPlaces(value: Double, decimalPlaces: Int): Double {
+        val factor = 10.0.pow(decimalPlaces.toDouble())
+        return round(value * factor) / factor
+    }
+
+
+
+    fun converterCalculations() {
+        val value = inputValue.toDouble()
+        print("Print --> $selectedInputConverter $selectedOutputConverter")
+        val result = when (selectedInputConverter to selectedOutputConverter){
+            "Centimetre" to "Metre" -> value / 100
+            "Centimetre" to "Feet" -> value / 30.48
+            "Centimetre" to "Millimetre" -> value * 10
+            "Metre" to "Centimetre" -> value * 100
+            "Metre" to "Feet" -> value * 3.281
+            "Metre" to "Millimetre" -> value * 1000
+            "Feet" to "Centimetre" -> value * 30.48
+            "Feet" to "Metre" -> value / 3.281
+            "Feet" to "Millimetre" -> value * 304.8
+            "Millimetre" to "Centimetre" -> value / 10
+            "Millimetre" to "Metre" -> value / 1000
+            "Millimetre" to "Feet" -> value / 304.8
+            else -> 0.0
+        }
+        resultText = "${roundToDecimalPlaces(result,2)}"
+    }
+
 
     fun handleInputDropDownClick(value: String) {
         inputExpand = false
@@ -81,17 +117,16 @@ fun UnitConverterUi() {
         selectedOutputConverter = value
     }
 
-    fun converterCalculations() {
-
-    }
-
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Unit Converter", fontSize = 20.sp, fontWeight = FontWeight(500))
         Spacer(modifier = Modifier.height(20.dp))
+        Text(text = resultText, fontSize = 24.sp, fontWeight = FontWeight(700))
+        Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             placeholder = {
                 Text(text = "Enter the value here...", color = Color.Gray)
             },
@@ -165,6 +200,12 @@ fun UnitConverterUi() {
 
                 }
             }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(onClick = {
+            converterCalculations()
+        }) {
+            Text(text = "Convert")
         }
 
 
