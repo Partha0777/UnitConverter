@@ -8,25 +8,33 @@ class Utils {
             selectedInputConverter: String,
             selectedOutputConverter: String,
             value: Double
-        ): Double {
-            val result = when (selectedInputConverter to selectedOutputConverter) {
-                "Centimetre" to "Metre" -> value / 100
-                "Centimetre" to "Feet" -> value / 30.48
-                "Centimetre" to "Millimetre" -> value * 10
-                "Metre" to "Centimetre" -> value * 100
-                "Metre" to "Feet" -> value * 3.281
-                "Metre" to "Millimetre" -> value * 1000
-                "Feet" to "Centimetre" -> value * 30.48
-                "Feet" to "Metre" -> value / 3.281
-                "Feet" to "Millimetre" -> value * 304.8
-                "Millimetre" to "Centimetre" -> value / 10
-                "Millimetre" to "Metre" -> value / 1000
-                "Millimetre" to "Feet" -> value / 304.8
+        ): Double = when (selectedInputConverter) {
+            "Centimetre" -> when (selectedOutputConverter) {
+                "Metre" -> value / 100
+                "Feet" -> value / 30.48
+                "Millimetre" -> value * 10
                 else -> 0.0
             }
-            return result
+            "Metre" -> when (selectedOutputConverter) {
+                "Centimetre" -> value * 100
+                "Feet" -> value * 3.281
+                "Millimetre" -> value * 1000
+                else -> 0.0
+            }
+            "Feet" -> when (selectedOutputConverter) {
+                "Centimetre" -> value * 30.48
+                "Metre" -> value / 3.281
+                "Millimetre" -> value * 304.8
+                else -> 0.0
+            }
+            "Millimetre" -> when (selectedOutputConverter) {
+                "Centimetre" -> value / 10
+                "Metre" -> value / 1000
+                "Feet" -> value / 304.8
+                else -> 0.0
+            }
+            else -> 0.0
         }
-
     }
 
 }
