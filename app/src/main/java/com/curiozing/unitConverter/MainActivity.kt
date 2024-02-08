@@ -86,7 +86,6 @@ fun UnitConverterUi() {
 
     fun converterCalculations() {
         val value = if (inputValue.isEmpty()) 0.0 else inputValue.toDouble()
-        print("Print --> $selectedInputConverter $selectedOutputConverter")
         resultText = "${
             roundToDecimalPlaces(
                 Utils.convertTheUnit(
