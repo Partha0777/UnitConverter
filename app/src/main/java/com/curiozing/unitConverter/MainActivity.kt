@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.background
                 ) {
                     UnitConverterUi()
                 }
@@ -73,8 +73,8 @@ fun UnitConverterUi() {
     var inputExpand by remember { mutableStateOf(false) }
     var outputExpand by remember { mutableStateOf(false) }
     var inputValue by remember { mutableStateOf(String()) }
-    var selectedInputConverter by remember { mutableStateOf("Select") }
-    var selectedOutputConverter by remember { mutableStateOf("Select") }
+    var selectedInputConverter by remember { mutableStateOf(Constants.dropDownDefaultValue) }
+    var selectedOutputConverter by remember { mutableStateOf(Constants.dropDownDefaultValue) }
     var resultText by remember { mutableStateOf("") }
     var resultUnit by remember { mutableStateOf("") }
 
@@ -117,7 +117,7 @@ fun UnitConverterUi() {
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             placeholder = {
-                Text(text = "Enter the value here...", color = Color.Gray)
+                Text(text = Constants.inputHint, color = Color.Gray)
             },
             value = inputValue,
             onValueChange = {
