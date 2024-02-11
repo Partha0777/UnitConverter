@@ -4,5 +4,6 @@ enum class Units {
     Millimetre,
     Centimetre,
     Feet,
-    Metre
+    Metre,
+    Default
 }
