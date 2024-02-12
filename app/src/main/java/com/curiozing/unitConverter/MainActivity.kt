@@ -144,17 +144,17 @@ fun UnitConverterUi() {
                     inputExpand = false
                 }) {
                     DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
-                        handleInputDropDownClick("Millimetre")
+                        handleInputDropDownClick(Units.Millimetre.toString())
                     })
                     DropdownMenuItem(text = { Text(text = "Centimetre") }, onClick = {
-                        handleInputDropDownClick("Centimetre")
+                        handleInputDropDownClick(Units.Centimetre.toString())
                     })
                     DropdownMenuItem(text = { Text(text = "Feet") }, onClick = {
-                        handleInputDropDownClick("Feet")
+                        handleInputDropDownClick(Units.Feet.toString())
 
                     })
                     DropdownMenuItem(text = { Text(text = "Metre") }, onClick = {
-                        handleInputDropDownClick("Metre")
+                        handleInputDropDownClick(Units.Metre.toString())
                     })
 
                 }
@@ -175,17 +175,17 @@ fun UnitConverterUi() {
                     outputExpand = false
                 }) {
                     DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
-                        handleOutputDropDownClick("Millimetre")
+                        handleOutputDropDownClick(Units.Millimetre.toString())
                     })
                     DropdownMenuItem(text = { Text(text = "Centimetre") }, onClick = {
-                        handleOutputDropDownClick("Centimetre")
+                        handleOutputDropDownClick(Units.Centimetre.toString())
                     })
                     DropdownMenuItem(text = { Text(text = "Feet") }, onClick = {
-                        handleOutputDropDownClick("Feet")
+                        handleOutputDropDownClick(Units.Feet.toString())
 
                     })
                     DropdownMenuItem(text = { Text(text = "Metre") }, onClick = {
-                        handleOutputDropDownClick("Metre")
+                        handleOutputDropDownClick(Units.Metre.toString())
                     })
 
                 }
