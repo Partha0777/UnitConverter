@@ -115,7 +115,8 @@ fun UnitConverterUi() {
         Text(text = resultText, fontSize = 28.sp, fontWeight = FontWeight(700))
         Text(text = resultUnit, fontSize = 14.sp, fontWeight = FontWeight(700))
         Spacer(modifier = Modifier.height(20.dp))
-        OutlinedTextField(keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        OutlinedTextField(
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             placeholder = {
                 Text(text = Constants.inputHint, color = Color.Gray)
             },
