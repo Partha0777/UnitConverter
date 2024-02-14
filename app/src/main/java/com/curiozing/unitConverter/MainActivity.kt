@@ -108,7 +108,9 @@ fun UnitConverterUi() {
     }
 
     Column(
-        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Unit Converter", fontSize = 20.sp, fontWeight = FontWeight(500))
         Spacer(modifier = Modifier.height(20.dp))
@@ -144,17 +146,17 @@ fun UnitConverterUi() {
                 DropdownMenu(expanded = inputExpand, onDismissRequest = {
                     inputExpand = false
                 }) {
-                    DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Millimetre.toString()) }, onClick = {
                         handleInputDropDownClick(Units.Millimetre.toString())
                     })
-                    DropdownMenuItem(text = { Text(text = "Centimetre") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Centimetre.toString()) }, onClick = {
                         handleInputDropDownClick(Units.Centimetre.toString())
                     })
-                    DropdownMenuItem(text = { Text(text = "Feet") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Feet.toString()) }, onClick = {
                         handleInputDropDownClick(Units.Feet.toString())
 
                     })
-                    DropdownMenuItem(text = { Text(text = "Metre") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Metre.toString()) }, onClick = {
                         handleInputDropDownClick(Units.Metre.toString())
                     })
 
