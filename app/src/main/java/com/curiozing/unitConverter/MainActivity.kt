@@ -48,6 +48,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.curiozing.unitConverter.ui.theme.MyApplicationTheme
 import kotlin.math.pow
 import kotlin.math.round
@@ -60,7 +63,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.background
                 ) {
-                    UnitConverterUi()
+                    MyApp()
                 }
             }
         }
@@ -68,7 +71,39 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun UnitConverterUi() {
+fun MyApp(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "unitController", builder ={
+        composable("unitController"){
+            UnitConverterUi {
+                navController.navigate("HistoryScreen")
+            }
+        }
+        composable("HistoryScreen"){
+            HistoryScreen{
+                navController.navigate("unitController")
+            }
+        }
+    } )
+
+
+
+}
+
+@Composable
+fun HistoryScreen(navigateToHome:()->Unit){
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "History Here!!", fontSize = 20.sp)
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(onClick = navigateToHome) {
+            Text(text = "Go to Home")
+        }
+    }
+
+}
+
+@Composable
+fun UnitConverterUi(onNavigation:()->Unit) {
 
     var inputExpand by remember { mutableStateOf(false) }
     var outputExpand by remember { mutableStateOf(false) }
@@ -200,6 +235,9 @@ fun UnitConverterUi() {
         }) {
             Text(text = "Convert")
         }
+        Button(onClick = onNavigation) {
+            Text(text = "History")
+        }
 
 
     }
@@ -216,7 +254,7 @@ fun handleInputDropDownClick(onExpandedStateChanged: (Boolean) -> Unit) {
 @Composable
 fun GreetingPreview() {
     MyApplicationTheme {
-        UnitConverterUi()
+        UnitConverterUi{}
     }
 }
 
