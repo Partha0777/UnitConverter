@@ -35,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -101,6 +102,7 @@ fun HistoryScreen(navigateToHome:()->Unit){
     }
 
 }
+val historyList = mutableListOf<String>()
 
 @Composable
 fun UnitConverterUi(onNavigation:()->Unit) {
@@ -112,6 +114,7 @@ fun UnitConverterUi(onNavigation:()->Unit) {
     var selectedOutputConverter by remember { mutableStateOf(Constants.dropDownDefaultValue) }
     var resultText by remember { mutableStateOf("") }
     var resultUnit by remember { mutableStateOf("") }
+    //val historyList = remember { mutableStateListOf<String>() }
 
     fun roundToDecimalPlaces(value: Double, decimalPlaces: Int): Double {
         val factor = 10.0.pow(decimalPlaces.toDouble())
@@ -129,6 +132,9 @@ fun UnitConverterUi(onNavigation:()->Unit) {
             )
         }"
         resultUnit = selectedOutputConverter
+        historyList.add("$resultText $resultUnit")
+        println("test $historyList")
+
     }
 
 
