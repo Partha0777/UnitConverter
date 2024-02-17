@@ -218,17 +218,17 @@ fun UnitConverterUi(onNavigation:()->Unit) {
                 DropdownMenu(expanded = outputExpand, onDismissRequest = {
                     outputExpand = false
                 }) {
-                    DropdownMenuItem(text = { Text(text = "Millimetre") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Millimetre.toString()) }, onClick = {
                         handleOutputDropDownClick(Units.Millimetre.toString())
                     })
-                    DropdownMenuItem(text = { Text(text = "Centimetre") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Centimetre.toString()) }, onClick = {
                         handleOutputDropDownClick(Units.Centimetre.toString())
                     })
-                    DropdownMenuItem(text = { Text(text = "Feet") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Feet.toString()) }, onClick = {
                         handleOutputDropDownClick(Units.Feet.toString())
 
                     })
-                    DropdownMenuItem(text = { Text(text = "Metre") }, onClick = {
+                    DropdownMenuItem(text = { Text(text = Units.Metre.toString()) }, onClick = {
                         handleOutputDropDownClick(Units.Metre.toString())
                     })
 
