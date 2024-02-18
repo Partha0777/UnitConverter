@@ -49,10 +49,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.curiozing.unitConverter.ui.theme.MyApplicationTheme
+import com.google.gson.Gson
 import kotlin.math.pow
 import kotlin.math.round
 
@@ -77,11 +80,13 @@ fun MyApp(){
     NavHost(navController = navController, startDestination = "unitController", builder ={
         composable("unitController"){
             UnitConverterUi {
-                navController.navigate("HistoryScreen")
+                val historylist = it
+                navController.navigate("HistoryScreen/$historylist/hello")
             }
         }
-        composable("HistoryScreen"){
-            HistoryScreen{
+        composable("HistoryScreen/{historylist}/{message}"){
+            val list = it.arguments?.getString("historylist") ?: ""
+            HistoryScreen(list){
                 navController.navigate("unitController")
             }
         }
@@ -92,9 +97,9 @@ fun MyApp(){
 }
 
 @Composable
-fun HistoryScreen(navigateToHome:()->Unit){
+fun HistoryScreen(list:String?,navigateToHome:()->Unit){
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "History Here!!", fontSize = 20.sp)
+        Text(text = list?:"No Data Found!", fontSize = 20.sp)
         Spacer(modifier = Modifier.height(20.dp))
         Button(onClick = navigateToHome) {
             Text(text = "Go to Home")
@@ -105,7 +110,7 @@ fun HistoryScreen(navigateToHome:()->Unit){
 val historyList = mutableListOf<String>()
 
 @Composable
-fun UnitConverterUi(onNavigation:()->Unit) {
+fun UnitConverterUi(onNavigation:(String)->Unit) {
 
     var inputExpand by remember { mutableStateOf(false) }
     var outputExpand by remember { mutableStateOf(false) }
@@ -241,7 +246,10 @@ fun UnitConverterUi(onNavigation:()->Unit) {
         }) {
             Text(text = "Convert")
         }
-        Button(onClick = onNavigation) {
+        Button(onClick = {
+            val list = Gson().toJson(historyList)
+            onNavigation.invoke(list)
+        }) {
             Text(text = "History")
         }
 
