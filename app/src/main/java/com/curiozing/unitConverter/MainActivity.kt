@@ -76,6 +76,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(){
+    val historyList = "historylist";
+
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "unitController", builder ={
         composable("unitController"){
@@ -84,8 +86,8 @@ fun MyApp(){
                 navController.navigate("HistoryScreen/$historylist/hello")
             }
         }
-        composable("HistoryScreen/{historylist}/{message}"){
-            val list = it.arguments?.getString("historylist") ?: ""
+        composable("HistoryScreen/{$historyList}/{message}"){
+            val list = it.arguments?.getString(historyList) ?: ""
             HistoryScreen(list){
                 navController.navigate("unitController")
             }
