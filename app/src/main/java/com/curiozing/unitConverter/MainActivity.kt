@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -103,6 +105,9 @@ fun HistoryScreen(list:String?,navigateToHome:()->Unit){
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = list?:"No Data Found!", fontSize = 20.sp)
         Spacer(modifier = Modifier.height(20.dp))
+        LazyColumn(content = {
+
+        })
         Button(onClick = navigateToHome) {
             Text(text = "Go to Home")
         }
