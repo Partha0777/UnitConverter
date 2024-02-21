@@ -58,6 +58,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.curiozing.unitConverter.ui.theme.MyApplicationTheme
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlin.math.pow
 import kotlin.math.round
 
@@ -102,12 +103,19 @@ fun MyApp(){
 
 @Composable
 fun HistoryScreen(list:String?,navigateToHome:()->Unit){
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = list?:"No Data Found!", fontSize = 20.sp)
-        Spacer(modifier = Modifier.height(20.dp))
-        LazyColumn(content = {
+    val gson = Gson()
+    val type = object : TypeToken<List<String>>() {}.type
 
+    val historyList:List<String> = gson.fromJson(list,type)
+
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        LazyColumn(content = {
+            items(historyList){
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(text = it, fontSize = 18.sp)
+            }
         })
+        Spacer(modifier = Modifier.height(50.dp))
         Button(onClick = navigateToHome) {
             Text(text = "Go to Home")
         }
@@ -144,7 +152,7 @@ fun UnitConverterUi(onNavigation:(String)->Unit) {
             )
         }"
         resultUnit = selectedOutputConverter
-        historyList.add("$resultText $resultUnit")
+        historyList.add("$inputValue $selectedInputConverter  --->  $resultText $selectedOutputConverter")
         println("test $historyList")
 
     }
