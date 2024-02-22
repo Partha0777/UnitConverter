@@ -78,39 +78,42 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(){
+fun MyApp() {
     val historyList = "historylist";
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "unitController", builder ={
-        composable("unitController"){
+    NavHost(navController = navController, startDestination = "unitController", builder = {
+        composable("unitController") {
             UnitConverterUi {
                 val historylist = it
                 navController.navigate("HistoryScreen/$historylist/hello")
             }
         }
-        composable("HistoryScreen/{$historyList}/{message}"){
+        composable("HistoryScreen/{$historyList}/{message}") {
             val list = it.arguments?.getString(historyList) ?: ""
-            HistoryScreen(list){
+            HistoryScreen(list) {
                 navController.navigate("unitController")
             }
         }
-    } )
-
+    })
 
 
 }
 
 @Composable
-fun HistoryScreen(list:String?,navigateToHome:()->Unit){
+fun HistoryScreen(list: String?, navigateToHome: () -> Unit) {
     val gson = Gson()
     val type = object : TypeToken<List<String>>() {}.type
 
-    val historyList:List<String> = gson.fromJson(list,type)
+    val historyList: List<String> = gson.fromJson(list, type)
 
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         LazyColumn(content = {
-            items(historyList){
+            items(historyList) {
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(text = it, fontSize = 18.sp)
             }
@@ -122,10 +125,11 @@ fun HistoryScreen(list:String?,navigateToHome:()->Unit){
     }
 
 }
+
 val historyList = mutableListOf<String>()
 
 @Composable
-fun UnitConverterUi(onNavigation:(String)->Unit) {
+fun UnitConverterUi(onNavigation: (String) -> Unit) {
 
     var inputExpand by remember { mutableStateOf(false) }
     var outputExpand by remember { mutableStateOf(false) }
@@ -207,12 +211,16 @@ fun UnitConverterUi(onNavigation:(String)->Unit) {
                 DropdownMenu(expanded = inputExpand, onDismissRequest = {
                     inputExpand = false
                 }) {
-                    DropdownMenuItem(text = { Text(text = Units.Millimetre.toString()) }, onClick = {
-                        handleInputDropDownClick(Units.Millimetre.toString())
-                    })
-                    DropdownMenuItem(text = { Text(text = Units.Centimetre.toString()) }, onClick = {
-                        handleInputDropDownClick(Units.Centimetre.toString())
-                    })
+                    DropdownMenuItem(
+                        text = { Text(text = Units.Millimetre.toString()) },
+                        onClick = {
+                            handleInputDropDownClick(Units.Millimetre.toString())
+                        })
+                    DropdownMenuItem(
+                        text = { Text(text = Units.Centimetre.toString()) },
+                        onClick = {
+                            handleInputDropDownClick(Units.Centimetre.toString())
+                        })
                     DropdownMenuItem(text = { Text(text = Units.Feet.toString()) }, onClick = {
                         handleInputDropDownClick(Units.Feet.toString())
 
@@ -238,12 +246,16 @@ fun UnitConverterUi(onNavigation:(String)->Unit) {
                 DropdownMenu(expanded = outputExpand, onDismissRequest = {
                     outputExpand = false
                 }) {
-                    DropdownMenuItem(text = { Text(text = Units.Millimetre.toString()) }, onClick = {
-                        handleOutputDropDownClick(Units.Millimetre.toString())
-                    })
-                    DropdownMenuItem(text = { Text(text = Units.Centimetre.toString()) }, onClick = {
-                        handleOutputDropDownClick(Units.Centimetre.toString())
-                    })
+                    DropdownMenuItem(
+                        text = { Text(text = Units.Millimetre.toString()) },
+                        onClick = {
+                            handleOutputDropDownClick(Units.Millimetre.toString())
+                        })
+                    DropdownMenuItem(
+                        text = { Text(text = Units.Centimetre.toString()) },
+                        onClick = {
+                            handleOutputDropDownClick(Units.Centimetre.toString())
+                        })
                     DropdownMenuItem(text = { Text(text = Units.Feet.toString()) }, onClick = {
                         handleOutputDropDownClick(Units.Feet.toString())
 
@@ -274,16 +286,11 @@ fun UnitConverterUi(onNavigation:(String)->Unit) {
 
 }
 
-fun handleInputDropDownClick(onExpandedStateChanged: (Boolean) -> Unit) {
-    onExpandedStateChanged(false)
-}
-
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyApplicationTheme {
-        UnitConverterUi{}
+        UnitConverterUi {}
     }
 }
 
