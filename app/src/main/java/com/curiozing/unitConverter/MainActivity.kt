@@ -79,18 +79,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp() {
-    val historyList = "historylist";
 
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "unitController", builder = {
-        composable("unitController") {
+        composable(Constants.unitController) {
             UnitConverterUi {
                 val historylist = it
                 navController.navigate("HistoryScreen/$historylist/hello")
             }
         }
-        composable("HistoryScreen/{$historyList}/{message}") {
-            val list = it.arguments?.getString(historyList) ?: ""
+        composable("${Constants.historyScreen}/{$historyList}/{message}") {
+            val list = it.arguments?.getString(Constants.historyList) ?: ""
             HistoryScreen(list) {
                 navController.navigate("unitController")
             }
@@ -120,7 +119,7 @@ fun HistoryScreen(list: String?, navigateToHome: () -> Unit) {
         })
         Spacer(modifier = Modifier.height(50.dp))
         Button(onClick = navigateToHome) {
-            Text(text = "Go to Home")
+            Text(text = Constants.goToHome)
         }
     }
 
