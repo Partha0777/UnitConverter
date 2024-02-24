@@ -81,14 +81,14 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "unitController", builder = {
+    NavHost(navController = navController, startDestination = Constants.unitController, builder = {
         composable(Constants.unitController) {
             UnitConverterUi {
                 val historylist = it
                 navController.navigate("HistoryScreen/$historylist/hello")
             }
         }
-        composable("${Constants.historyScreen}/{$historyList}/{message}") {
+        composable("${Constants.historyScreen}/{$historyList}/{${Constants.message}}") {
             val list = it.arguments?.getString(Constants.historyList) ?: ""
             HistoryScreen(list) {
                 navController.navigate("unitController")

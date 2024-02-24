@@ -7,5 +7,6 @@ object Constants {
    const val historyScreen = "HistoryScreen"
    const val goToHome = "Go to Home"
    const val unitController = "unitController"
+   const val message = "message"
 
 }
