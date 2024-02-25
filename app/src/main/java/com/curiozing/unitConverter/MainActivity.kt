@@ -85,13 +85,13 @@ fun MyApp() {
         composable(Constants.unitController) {
             UnitConverterUi {
                 val historylist = it
-                navController.navigate("HistoryScreen/$historylist/hello")
+                navController.navigate("${Constants.historyScreen}/$historylist/hello")
             }
         }
         composable("${Constants.historyScreen}/{$historyList}/{${Constants.message}}") {
             val list = it.arguments?.getString(Constants.historyList) ?: ""
             HistoryScreen(list) {
-                navController.navigate("unitController")
+                navController.navigate(Constants.unitController)
             }
         }
     })
