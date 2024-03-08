@@ -321,7 +321,14 @@ fun main() {
     tempList = list
 
     changeName(tempList[1])
+    foo("Hello"){
+        println(it)
+    }
 
+}
+
+fun foo(msg: String, bar: (input: String) -> Unit) {
+    bar(msg + " Kan")
 }
 
 fun changeName(item: CustomClass) {
